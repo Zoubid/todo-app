@@ -5,7 +5,7 @@ from openerp import models, fields, api
 class TodoTask(models.Model):
 
 	_name = 'toddo.task'
-	_inherit = 'mail.thread'
+	
 	
 	name = fields.Char('Description', required = True)
 	is_done = fields.Boolean('Done?')
@@ -16,7 +16,7 @@ class TodoTask(models.Model):
 		self.is_done = not self.is_done
 		return True
 
-	@api.one
+	@api.multi
 	def do_clear_done(self):
 		done_recs = self.search([('is_done','=',True)])
 		done_recs.write({'active':False})
